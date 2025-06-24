@@ -2,7 +2,7 @@ export const Europa = {
   props: { style: { fontFamily: `'Europa', Helvetica, sans-serif` } }
 }
 
-/* ── shared state ───────────────────────────────────── */
+/* ─────────────── shared state ─────────────── */
 const registry = {}
 const sel = new Set()
 let last = ' , '
@@ -19,7 +19,7 @@ function visual(root, y, x) {
   return 'default'
 }
 
-/* ── cell factory ───────────────────────────────────── */
+/* ─────────────── cell factory ─────────────── */
 function makeCell(y, x, bg) {
   const key = keyOf(y, x)
   return {
@@ -49,7 +49,7 @@ function makeCell(y, x, bg) {
   }
 }
 
-/* ── main factory ───────────────────────────────────── */
+/* ─────────────── main factory ─────────────── */
 export function createGridSelection(cols = 16, rows = 8, theme = {}) {
   colour = theme
 
@@ -95,7 +95,7 @@ export function createGridSelection(cols = 16, rows = 8, theme = {}) {
 
     state: { hoverY: null, hoverX: null },
 
-    /* header */
+    /* ─────────────── header ─────────────── */
     Title: {
       tag: 'h3',
       extend: [Europa],
@@ -103,7 +103,7 @@ export function createGridSelection(cols = 16, rows = 8, theme = {}) {
       style: { margin: 0, color: colour.headerText, fontSize: '14px ', fontWeight: 'bold' }
     },
 
-    /* grid */
+    /* ─────────────── grid ─────────────── */
     GridBox: {
       tag: 'div',
       style: (el) => {
@@ -123,7 +123,7 @@ export function createGridSelection(cols = 16, rows = 8, theme = {}) {
       on: { mouseleave: (_, _el, st) => st.parent.update({ hoverY: null, hoverX: null }) }
     },
 
-    /* footer */
+    /* ─────────────── footer ─────────────── */
     Footer: {
       tag: 'div',
       extend: [Europa],
@@ -137,13 +137,13 @@ export function createGridSelection(cols = 16, rows = 8, theme = {}) {
         maxWidth: '940px',
         width: '100%'
       },
-      /* left side  ──────────────────────── */
+      /* [left side] ────────────────────────────── */
       Coords: {
         tag: 'span',
         text: () => `Selection coordinates: ${last}`
       },
 
-      /* right side ─────────────────────── */
+      /* ────────────────────────────── [right side] */
       Total: {
         tag: 'span',
         text: () => `Total cells selected: ${sel.size}`
