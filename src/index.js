@@ -32,40 +32,5 @@ function initGrid(...args) {
     }
   }
 }
-
+// theme choices: light, dark, neon, vibrant, ocean
 create(initGrid(16, 8, 'light'))
-
-// import { create } from 'smbls'
-// import { createGridSelection } from './components/GridSelection.js'
-// import themes from './themes/index.js'
-// const app = {
-//   tag: 'div',
-//   style: {
-//     minHeight: '100vh',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     background: 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)'
-//   },
-
-//   Main: {
-//     extend: createGridSelection()
-//   },
-//   Footer: {
-//     tag: 'footer',
-//     style: {
-//       position: 'fixed',
-//       bottom: 0,
-//       left: 0,
-//       right: 0,
-//       padding: '.5rem 1rem',
-//       fontSize: '.8rem',
-//       color: '#cbd5e1',
-//       background: 'rgba(0,0,0,.6)',
-//       textAlign: 'center'
-//     },
-//     text: 'Interactive Grid Selection with Symbols'
-//   }
-// }
-
-// create(app)
