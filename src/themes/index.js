@@ -66,7 +66,7 @@ export const vibrant = {
   cellSelected: '#f59e0b',
   cellDefault: 'rgba(254, 243, 199, 0.8)',
 
-  headerText: 'rgb(0, 0, 0)',
+  headerText: 'rgb(62, 109, 0)',
   footerText: '#92400e',
   text: '#78350f'
 }
