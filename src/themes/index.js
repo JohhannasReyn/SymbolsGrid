@@ -48,7 +48,7 @@ export const neon = {
   cellSelected: 'rgba(61, 7, 48, 0.86)',
   cellDefault: 'rgba(67, 204, 238, 0.64)',
 
-  headerText: 'rgb(0, 0, 0)',
+  headerText: 'rgb(145, 255, 0)',
   footerText: '#22d3ee',
   text: '#67e8f9'
 }
