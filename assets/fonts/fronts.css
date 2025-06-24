@@ -1,0 +1,20 @@
+/*  Europa font – regular + bold  */
+@font-face {
+  font-family: 'Europa';
+  src:
+    url('./europa-regular-webfont.woff2') format('woff2'),
+    url('./europa-regular-webfont.woff')  format('woff');
+  font-weight: 400;
+  font-style : normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Europa';
+  src:
+    url('./europa-bold-webfont.woff2') format('woff2'),
+    url('./europa-bold-webfont.woff')  format('woff');
+  font-weight: 700;
+  font-style : normal;
+  font-display: swap;
+}

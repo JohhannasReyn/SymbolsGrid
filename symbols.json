@@ -1,0 +1,5 @@
+{
+  "key": "my-grid-cli.symbo.ls",
+  "distDir": "./smbls",
+  "packageManager": "yarn"
+}
