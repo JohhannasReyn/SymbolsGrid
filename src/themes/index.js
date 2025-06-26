@@ -228,10 +228,11 @@ export const ocean = {
     if (t === 0 && clockStartTime) { t = (performance.now() - clockStartTime) / 1000 } // If still 0, manually calculate time
     const period = 12; // Loop every 12 seconds
     const waveWidth = 15; // how wide the "wave" appears (in % span)
-    const center = (((t % period) / period) * (100 + (waveWidth * 2))) - waveWidth; // animate left to right from [-waveWidth,100+waveWidth]
+    const cycle = (t % period) / period;
+    const center = -waveWidth + (100 + 2 * waveWidth) * cycle; // animate left to right from [-waveWidth,100+waveWidth]
     if (t > 0) { setTimeout(() => forceThemeUpdate(), 50) }// Force update if time is advancing but state isn't
-    const start = center - (waveWidth / 2); // Compute edges of the wave, wrapping around if needed
-    const end = (center + waveWidth / 2);
+    const start = center - waveWidth; // Compute edges of the wave, wrapping around if needed
+    const end = center + waveWidth;
     const baseDark = `rgba(5, 0, 94, 1.0)`;   // trailing color
     const waveColor = 'rgba(0, 114, 145, 1)';     // the "light wave"
     const tipDark = 'rgba(4, 4, 125, 1)';         // subtle front-end shade
@@ -239,16 +240,15 @@ export const ocean = {
     if (center < 0) { // Handle cycle ends
       gradient = `linear-gradient(119deg, ${tipDark} 0%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
     } else if (start < 0) {// start case
-      gradient = `linear-gradient(119deg, ${waveColor} 0%, ${tipDark} ${center.toFixed(2)}%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
+      gradient = `linear-gradient(119deg, ${waveColor} 0%, , ${tipDark} ${center.toFixed(2)}%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
     } else if (end < 100) {// normal case
       gradient = `linear-gradient(119deg, ${baseDark} 0%, ${tipDark} ${start.toFixed(2)}%, ${waveColor} ${center.toFixed(2)}%, ${tipDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
-    } else if (center < 100) {// end case
-      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} ${end.toFixed(2)}%, ${tipDark} ${center.toFixed(2)}%, ${waveColor} 100%)`
-    } else if (start < 100) {// end case
+    } else if (end > 100) {// end case
+      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} ${start.toFixed(2)}%, ${tipDark} ${center.toFixed(2)}%, ${waveColor} 100%)`
+    } else if (center > 100) {// end case
       gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} ${start.toFixed(2)}%, ${tipDark} 100%)`
     } else {// wrap case (when wave crosses 100% back to 0%)
       gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} 100%)`
-    }
     return gradient.replace(/\s+/g, ' ') // compact for CSS
   },/* Card background gets darker blue the more cells are selected */
   cardBg: (_el, st) => {
