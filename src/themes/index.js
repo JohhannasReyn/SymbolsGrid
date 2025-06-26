@@ -240,7 +240,7 @@ export const ocean = {
     if (center < 0) { // Handle cycle ends
       gradient = `linear-gradient(119deg, ${tipDark} 0%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
     } else if (start < 0) {// start case
-      gradient = `linear-gradient(119deg, ${waveColor} 0%, , ${tipDark} ${center.toFixed(2)}%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
+      gradient = `linear-gradient(119deg, ${waveColor} 0%, ${tipDark} ${center.toFixed(2)}%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
     } else if (end < 100) {// normal case
       gradient = `linear-gradient(119deg, ${baseDark} 0%, ${tipDark} ${start.toFixed(2)}%, ${waveColor} ${center.toFixed(2)}%, ${tipDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
     } else if (end > 100) {// end case
