@@ -228,25 +228,26 @@ export const ocean = {
     if (t === 0 && clockStartTime) { t = (performance.now() - clockStartTime) / 1000 } // If still 0, manually calculate time
     const period = 12; // Loop every 12 seconds
     const waveWidth = 15; // how wide the "wave" appears (in % span)
-    const center = ((t % period) / period) * 100; // animate left to right from 0% to 100%
+    const center = (((t % period) / period) * (100 + (waveWidth * 2))) - waveWidth; // animate left to right from [-waveWidth,100+waveWidth]
     if (t > 0) { setTimeout(() => forceThemeUpdate(), 50) }// Force update if time is advancing but state isn't
-    const start = (center - waveWidth / 2 + 100) % 100; // Compute edges of the wave, wrapping around if needed
-    const end = (center + waveWidth / 2) % 100;
-    const fade = 1.0 - (center / 100.0); // Colors to use for effect
-    const baseDark = `rgba(5, 0, 94, ${fade})`;   // trailing color
+    const start = center - (waveWidth / 2); // Compute edges of the wave, wrapping around if needed
+    const end = (center + waveWidth / 2);
+    const baseDark = `rgba(5, 0, 94, 1.0)`;   // trailing color
     const waveColor = 'rgba(0, 114, 145, 1)';     // the "light wave"
     const tipDark = 'rgba(4, 4, 125, 1)';         // subtle front-end shade
     let gradient; // The gradient to be returned
-    if (center < waveWidth / 2) { // Handle cycle ends
-      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${tipDark} ${start}%, ${waveColor} ${center}%, ${tipDark} ${end}%, ${baseDark} 100%)`
-    } else if (end < waveWidth + 5) {// start case
-      gradient = `linear-gradient(119deg, ${waveColor} ${center}%, ${tipDark} ${end}%, ${baseDark} 100%)`
-    } else if (start < 100 - waveWidth) {// normal case
-      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${tipDark} ${start}%, ${waveColor} ${center}%, ${tipDark} ${end}%, ${baseDark} 100%)`
-    } else if (center > 100 - waveWidth) {// end case
-      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${tipDark} ${start}%, ${waveColor} ${center}%, ${tipDark} ${end}%, ${baseDark} 100%)`
+    if (center < 0) { // Handle cycle ends
+      gradient = `linear-gradient(119deg, ${tipDark} 0%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
+    } else if (start < 0) {// start case
+      gradient = `linear-gradient(119deg, ${waveColor} 0%, ${tipDark} ${center.toFixed(2)}%, ${baseDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
+    } else if (end < 100) {// normal case
+      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${tipDark} ${start.toFixed(2)}%, ${waveColor} ${center.toFixed(2)}%, ${tipDark} ${end.toFixed(2)}%, ${baseDark} 100%)`
+    } else if (center < 100) {// end case
+      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} ${end.toFixed(2)}%, ${tipDark} ${center.toFixed(2)}%, ${waveColor} 100%)`
+    } else if (start < 100) {// end case
+      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} ${start.toFixed(2)}%, ${tipDark} 100%)`
     } else {// wrap case (when wave crosses 100% back to 0%)
-      gradient = `linear-gradient(119deg, ${tipDark} 0%, ${baseDark} 50%, ${tipDark} 100%)`
+      gradient = `linear-gradient(119deg, ${baseDark} 0%, ${baseDark} 100%)`
     }
     return gradient.replace(/\s+/g, ' ') // compact for CSS
   },/* Card background gets darker blue the more cells are selected */
@@ -255,8 +256,8 @@ export const ocean = {
     if (t > 0) { setTimeout(() => forceThemeUpdate(), 50) }// Force update if time is advancing but state isn't
     const selT = (t * 0.1) % 20; // 0 → none, 1 → full grid
     const fade = ((t % 69) / 100.0);
-    const base = `rgba(64, 52, 222, ${fade})`;
-    const pick = `rgba(255, 250, 214, ${0.70 - fade})`; // e.g. '#3b82f6'
+    const base = `rgba(64, 52, 222, ${fade.toFixed(2)})`;
+    const pick = `rgba(255, 250, 214, ${(0.70 - fade).toFixed(2)})`; // e.g. '#3b82f6'
     return blendRGBA(base, pick, selT * 0.8); // cap at 80 % tint
   },
   cardBorder: '1px solid rgba(255, 255, 255,.88)', cardShadow: '0px 0px 3px 22px rgba(241, 212, 143, 0.89)',
